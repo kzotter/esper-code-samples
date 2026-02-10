@@ -1,0 +1,29 @@
+{
+  "tenants": {
+    "stratix-master": {
+      "tenant_name": "stratix-master",
+      "enterprise_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "api_key": "your-api-key-here"
+    },
+    "customer-a-east": {
+      "tenant_name": "cust-a-east",
+      "enterprise_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "api_key": "your-api-key-here"
+    },
+    "customer-a-west": {
+      "tenant_name": "cust-a-west",
+      "enterprise_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "api_key": "your-api-key-here"
+    },
+    "customer-b-franchise-1": {
+      "tenant_name": "cust-b-f1",
+      "enterprise_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "api_key": "your-api-key-here"
+    },
+    "customer-b-franchise-2": {
+      "tenant_name": "cust-b-f2",
+      "enterprise_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
+      "api_key": "your-api-key-here"
+    }
+  }
+}
