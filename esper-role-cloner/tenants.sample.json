@@ -1,7 +1,7 @@
 {
   "tenants": {
-    "stratix-master": {
-      "tenant_name": "stratix-master",
+    "msp-master": {
+      "tenant_name": "msp-master",
       "enterprise_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
       "api_key": "your-api-key-here"
     },
