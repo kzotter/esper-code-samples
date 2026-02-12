@@ -4,7 +4,7 @@ Esper Custom Role Cloner
 ========================
 Clone custom RBAC roles from one Esper tenant to one or more target tenants.
 
-Built for multi-tenant partners (like Stratix) who need to replicate
+Built for multi-tenant partners who need to replicate
 custom role definitions across their tenant portfolio without the
 pain of manual re-creation in the console.
 
@@ -17,7 +17,7 @@ Usage:
 Requirements:
     pip install requests
 
-Author: Esper Solutions Engineering
+Author: Esper Partner Sales Engineering
 """
 
 import argparse
