@@ -8,6 +8,25 @@ Built for multi-tenant partners who need to replicate custom role definitions ac
 
 When you create a perfect custom role with exactly the right permissions in one tenant, this tool lets you instantly deploy it to all your other tenants with a single command.
 
+API Surface Note
+
+This script uses the AuthZ v2 Roles API.
+
+Roles are NOT enterprise-scoped under /api/enterprise/{enterprise_id}/....
+
+The enterprise_id remains in the config for compatibility with other enterprise-scoped APIs but is not required for AuthZ v2 role endpoints.
+
+All role operations use:
+	•	GET /api/authz2/v1/roles/
+	•	GET /api/authz2/v1/roles/{role_id}/scopes
+	•	PUT /api/authz2/v1/roles/{role_id}/scopes
+
+Base URL format:
+
+https://{tenant}-api.esper.cloud/api
+
+If you receive a 404 error, verify the path includes /api/authz2/v1/.
+
 ## Features
 
 - **Clone roles to multiple tenants** in one operation
@@ -159,6 +178,12 @@ Optional:
 **"401 Unauthorized"**
 - Check your API key is correct and not expired
 - Verify the API key has permission to manage roles
+
+**"404 Not Found"**
+Likely incorrect endpoint path (check for /api/authz2/v1/).
+
+**"401 / 403"**
+Authentication or permission issue with API key.
 
 **"Role created but failed to apply scopes"**
 - The target tenant may not support all the same permission scopes
