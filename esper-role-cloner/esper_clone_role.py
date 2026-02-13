@@ -110,18 +110,27 @@ class EsperRoleCloner:
     # -------------------------------------------------------------------------
 
     def list_roles(self, tenant: EsperTenant) -> list:
+        """List roles in a tenant.
+
+        Uses the AuthZ v2 Roles API:
+          GET /api/authz2/v1/roles/
         """
-        List all custom roles in a tenant.
-        GET /api/enterprise/{enterprise_id}/role/
-        """
-        path = f"enterprise/{tenant.enterprise_id}/role/"
+        path = "authz2/v1/roles/"
         result = self._get(tenant, path)
-        # Handle paginated response
-        if isinstance(result, dict) and "results" in result:
-            return result["results"]
+
+        # Expected shape: {"count": N, "roles": [...]}
+        if isinstance(result, dict):
+            if "roles" in result and isinstance(result["roles"], list):
+                return result["roles"]
+            # Back-compat / edge cases
+            if "results" in result and isinstance(result["results"], list):
+                return result["results"]
+
+        # Some environments may return a bare list
         if isinstance(result, list):
             return result
-        return result.get("results", [result])
+
+        return []
 
     def get_role_by_name(self, tenant: EsperTenant, role_name: str) -> Optional[dict]:
         """Find a specific role by its display name."""
@@ -132,42 +141,58 @@ class EsperRoleCloner:
         return None
 
     def get_role_scopes(self, tenant: EsperTenant, role_id: str) -> list:
+        """Get the permission scopes assigned to a role.
+
+        Uses the AuthZ v2 Roles API:
+          GET /api/authz2/v1/roles/{role_id}/scopes
         """
-        Get the permission scopes assigned to a role.
-        GET /api/enterprise/{enterprise_id}/role/{role_id}/scope/
-        """
-        path = f"enterprise/{tenant.enterprise_id}/role/{role_id}/scope/"
+        path = f"authz2/v1/roles/{role_id}/scopes"
         result = self._get(tenant, path)
-        if isinstance(result, dict) and "results" in result:
-            return result["results"]
+
+        # Common response: bare list of scope objects
         if isinstance(result, list):
             return result
-        return result.get("results", [result])
+
+        # Some variants wrap: {"count": N, "scopes": [...]}
+        if isinstance(result, dict):
+            if "scopes" in result and isinstance(result["scopes"], list):
+                return result["scopes"]
+            if "results" in result and isinstance(result["results"], list):
+                return result["results"]
+
+        return []
 
     def create_role(self, tenant: EsperTenant, name: str, description: str = "") -> dict:
+        """Create a new custom role in a tenant (no scopes by default).
+
+        Uses the AuthZ v2 Roles API:
+          POST /api/authz2/v1/roles/
         """
-        Create a new custom role in a tenant (no scopes by default).
-        POST /api/enterprise/{enterprise_id}/role/
-        """
-        path = f"enterprise/{tenant.enterprise_id}/role/"
-        payload = {
-            "name": name,
-            "description": description,
-        }
+        path = "authz2/v1/roles/"
+        payload = {"name": name, "description": description}
         return self._post(tenant, path, payload)
 
     def update_role_scopes(self, tenant: EsperTenant, role_id: str, scopes: list) -> dict:
-        """
-        Set the permission scopes on a role.
-        PUT /api/enterprise/{enterprise_id}/role/{role_id}/scope/
-        """
-        path = f"enterprise/{tenant.enterprise_id}/role/{role_id}/scope/"
-        payload = {"scopes": scopes}
-        return self._put(tenant, path, payload)
+        """Set the permission scopes on a role.
 
-    # -------------------------------------------------------------------------
-    # Clone Workflow
-    # -------------------------------------------------------------------------
+        Uses the AuthZ v2 Roles API:
+          PUT /api/authz2/v1/roles/{role_id}/scopes
+        """
+        path = f"authz2/v1/roles/{role_id}/scopes"
+
+        # The API expects scope names (strings). Normalize if needed.
+        scope_names = []
+        for s in scopes or []:
+            if isinstance(s, str):
+                scope_names.append(s)
+            elif isinstance(s, dict):
+                if "name" in s:
+                    scope_names.append(s["name"])
+                elif "scope" in s:
+                    scope_names.append(s["scope"])
+
+        payload = {"scope_names": scope_names}
+        return self._put(tenant, path, payload)
 
     def fetch_role_definition(self, source: EsperTenant, role_name: str) -> dict:
         """
