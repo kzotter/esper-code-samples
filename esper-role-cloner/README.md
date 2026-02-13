@@ -53,7 +53,7 @@ Copy `tenants.sample.json` to `tenants.json` and fill in your tenant details:
 ```json
 {
   "tenants": {
-    "my-master": {
+    "msp-master": {
       "tenant_name": "my-master",
       "enterprise_id": "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
       "api_key": "your-api-key-here"
@@ -75,7 +75,7 @@ Copy `tenants.sample.json` to `tenants.json` and fill in your tenant details:
 ### 2. List available roles
 
 ```bash
-python esper_clone_role.py --source-tenant my-master --list-roles
+python esper_clone_role.py --source-tenant msp-master --list-roles
 ```
 
 ### 3. Clone a role
@@ -83,13 +83,13 @@ python esper_clone_role.py --source-tenant my-master --list-roles
 ```bash
 # Clone to specific tenants
 python esper_clone_role.py \
-    --source-tenant my-master \
+    --source-tenant msp-master \
     --role-name "Field Tech" \
     --target-tenants "my-east,my-west"
 
 # Clone to ALL other tenants in your config
 python esper_clone_role.py \
-    --source-tenant my-master \
+    --source-tenant msp-master \
     --role-name "Field Tech" \
     --all-targets
 ```
@@ -102,7 +102,7 @@ See exactly what would happen without making any changes:
 
 ```bash
 python esper_clone_role.py \
-    --source-tenant my-master \
+    --source-tenant msp-master \
     --role-name "Field Tech" \
     --all-targets \
     --dry-run
@@ -114,7 +114,7 @@ Save a role to JSON for auditing, sharing, or version control:
 
 ```bash
 python esper_clone_role.py \
-    --source-tenant my-master \
+    --source-tenant msp-master \
     --role-name "Field Tech" \
     --export-role field-tech-role.json
 ```
@@ -125,7 +125,7 @@ See all API calls and permission details:
 
 ```bash
 python esper_clone_role.py \
-    --source-tenant my-master \
+    --source-tenant msp-master \
     --role-name "Field Tech" \
     --all-targets \
     --verbose
