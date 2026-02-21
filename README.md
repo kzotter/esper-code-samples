@@ -2,7 +2,7 @@
 
 A collection of sample code for various use cases based on Esper's device management infrastructure.
 
-##⚠️ Using generative coding tools (Claude, Cursor, Copilot, etc.)?
+## ⚠️ Using generative coding tools (Claude, Cursor, Copilot, etc.)?
 Review ESPER_API_GUARDRAILS.md before generating or modifying integration code.
 It defines canonical base URLs, service namespaces, versioning rules, and common pitfalls that can lead to incorrect API calls.
 
