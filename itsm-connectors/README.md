@@ -20,8 +20,6 @@ This project is a reference implementation and community sample, not an official
 
 It is intended to demonstrate architectural patterns for integrating Esper’s Cloud APIs with ITSM platforms such as Zendesk, Salesforce, and ServiceNow. The code is designed for experimentation, extension, and adaptation within your own infrastructure.
 
-```
-
 ## What's Inside
 
 ```
