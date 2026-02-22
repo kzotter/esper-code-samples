@@ -4,6 +4,11 @@
 
 A Zendesk Apps Framework (ZAF) sidebar app that displays live Esper device status inside your support tickets.
 
+## Status
+This project is a reference implementation and community sample, not an officially supported Esper product or managed integration.
+
+It is intended to demonstrate architectural patterns for integrating Esper’s Cloud APIs with ITSM platforms such as Zendesk, Salesforce, and ServiceNow. The code is designed for experimentation, extension, and adaptation within your own infrastructure.
+
 ## What It Does
 
 When an agent opens a ticket with a device serial number, the sidebar automatically:
