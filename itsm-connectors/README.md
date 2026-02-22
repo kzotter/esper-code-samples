@@ -15,6 +15,13 @@ You manage a fleet of dedicated devices — kiosks, POS terminals, digital signa
 
 This repo fixes that. It connects Esper's Cloud APIs directly into your ITSM platform so that when a support agent opens a ticket about a device, they see live device status, health data, and remote access controls **right inside the ticket** — no tab switching, no hunting.
 
+## Status
+This project is a reference implementation and community sample, not an officially supported Esper product or managed integration.
+
+It is intended to demonstrate architectural patterns for integrating Esper’s Cloud APIs with ITSM platforms such as Zendesk, Salesforce, and ServiceNow. The code is designed for experimentation, extension, and adaptation within your own infrastructure.
+
+```
+
 ## What's Inside
 
 ```
