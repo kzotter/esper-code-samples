@@ -1,0 +1,72 @@
+<!-- Copyright (c) 2026 Esper.io — MIT License -->
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="sidebar.css">
+</head>
+<body>
+  <div id="app">
+
+    <!-- Loading state -->
+    <div id="loading" class="state">
+      <div class="spinner"></div>
+      <p>Looking up device...</p>
+    </div>
+
+    <!-- No device linked -->
+    <div id="no-device" class="state" style="display:none;">
+      <p class="muted">No device serial found on this ticket.</p>
+      <p class="muted small">Add a serial number to the <strong>Device Serial</strong> field to see device info here.</p>
+    </div>
+
+    <!-- Device not found -->
+    <div id="not-found" class="state" style="display:none;">
+      <p class="muted">Device not found in Esper.</p>
+      <p class="muted small">Check the serial number: <strong id="searched-query"></strong></p>
+    </div>
+
+    <!-- Error state -->
+    <div id="error-state" class="state" style="display:none;">
+      <p class="error">Failed to load device data.</p>
+      <p class="muted small" id="error-message"></p>
+    </div>
+
+    <!-- Device card -->
+    <div id="device-card" style="display:none;">
+      <div class="device-header">
+        <span class="device-name" id="device-name"></span>
+        <span class="status-badge" id="status-badge"></span>
+      </div>
+
+      <table class="info-table">
+        <tr><td class="label">Serial</td><td id="device-serial"></td></tr>
+        <tr><td class="label">Model</td><td id="device-model"></td></tr>
+        <tr><td class="label">OS</td><td id="device-os"></td></tr>
+        <tr><td class="label">Agent</td><td id="device-agent"></td></tr>
+        <tr><td class="label">Blueprint</td><td id="device-blueprint"></td></tr>
+        <tr><td class="label">Last Seen</td><td id="device-lastseen"></td></tr>
+      </table>
+
+      <div class="actions">
+        <button id="btn-remote" class="btn btn-primary">🔍 Remote View</button>
+        <button id="btn-events" class="btn btn-default">📋 Events</button>
+        <div class="btn-row">
+          <button id="btn-reboot" class="btn btn-default btn-sm">🔄 Reboot</button>
+          <button id="btn-ping" class="btn btn-default btn-sm">📌 Ping</button>
+        </div>
+      </div>
+
+      <!-- Events panel (hidden by default) -->
+      <div id="events-panel" style="display:none;">
+        <h4>Recent Events</h4>
+        <div id="events-list"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
+  <script src="sidebar.js"></script>
+</body>
+</html>

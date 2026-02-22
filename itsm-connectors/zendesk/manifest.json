@@ -1,0 +1,38 @@
+{
+  "name": "Esper Device Manager",
+  "author": {
+    "name": "Esper.io",
+    "url": "https://esper.io"
+  },
+  "defaultLocale": "en",
+  "version": "1.0.0",
+  "frameworkVersion": "2.0",
+  "location": {
+    "support": {
+      "ticket_sidebar": {
+        "url": "assets/sidebar.html",
+        "flexible": true
+      }
+    }
+  },
+  "parameters": [
+    {
+      "name": "middleware_url",
+      "type": "text",
+      "required": true,
+      "label": "Middleware URL — Base URL of your Esper ITSM middleware (e.g., https://esper-connector.yourco.com)"
+    },
+    {
+      "name": "esper_tenant",
+      "type": "text",
+      "required": true,
+      "label": "Esper Tenant Name — The 'acme' part of acme.esper.cloud"
+    },
+    {
+      "name": "device_field_name",
+      "type": "text",
+      "required": false,
+      "label": "Custom Field Name — Ticket field containing the device serial (default: device_serial)"
+    }
+  ]
+}
