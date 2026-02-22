@@ -1,0 +1,25 @@
+{
+  "name": "@esper/itsm-middleware",
+  "version": "1.0.0",
+  "description": "Esper ITSM Connector Middleware — bridges ITSM platforms to the Esper Cloud API",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "test": "node --test test/**/*.test.js"
+  },
+  "keywords": ["esper", "itsm", "zendesk", "salesforce", "servicenow", "mdm", "device-management"],
+  "author": "Esper.io",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.0",
+    "cors": "^2.8.5",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0",
+    "dotenv": "^16.4.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

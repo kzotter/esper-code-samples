@@ -1,0 +1,75 @@
+<!-- Copyright (c) 2026 Esper.io — MIT License -->
+<template>
+    <lightning-card title="Esper Device" icon-name="custom:custom85">
+        <!-- Loading -->
+        <template lwc:if={loading}>
+            <div class="slds-p-around_medium slds-align_absolute-center">
+                <lightning-spinner alternative-text="Loading device..." size="small"></lightning-spinner>
+            </div>
+        </template>
+
+        <!-- Device found -->
+        <template lwc:if={device}>
+            <div class="slds-p-horizontal_medium slds-p-bottom_medium">
+                <!-- Header -->
+                <div class="slds-grid slds-grid_align-spread slds-m-bottom_small">
+                    <p class="slds-text-heading_small slds-truncate">{device.name}</p>
+                    <lightning-badge label={statusLabel} class={statusClass}></lightning-badge>
+                </div>
+
+                <!-- Info grid -->
+                <dl class="slds-dl_horizontal slds-text-body_small">
+                    <dt class="slds-dl_horizontal__label">Serial</dt>
+                    <dd class="slds-dl_horizontal__detail">{device.serial}</dd>
+
+                    <dt class="slds-dl_horizontal__label">Model</dt>
+                    <dd class="slds-dl_horizontal__detail">{deviceModel}</dd>
+
+                    <dt class="slds-dl_horizontal__label">OS</dt>
+                    <dd class="slds-dl_horizontal__detail">Android {device.os_version}</dd>
+
+                    <dt class="slds-dl_horizontal__label">Agent</dt>
+                    <dd class="slds-dl_horizontal__detail">{device.dpc_version}</dd>
+
+                    <dt class="slds-dl_horizontal__label">Blueprint</dt>
+                    <dd class="slds-dl_horizontal__detail">{device.blueprintName}</dd>
+
+                    <dt class="slds-dl_horizontal__label">Last Seen</dt>
+                    <dd class="slds-dl_horizontal__detail">{lastSeenFormatted}</dd>
+                </dl>
+
+                <!-- Actions -->
+                <div class="slds-m-top_medium">
+                    <lightning-button-group>
+                        <lightning-button
+                            label="Remote View"
+                            onclick={handleRemoteView}
+                            variant="brand"
+                            icon-name="utility:preview">
+                        </lightning-button>
+                        <lightning-button
+                            label="Reboot"
+                            onclick={handleReboot}
+                            icon-name="utility:refresh">
+                        </lightning-button>
+                        <lightning-button
+                            label="Ping"
+                            onclick={handlePing}
+                            icon-name="utility:connected_apps">
+                        </lightning-button>
+                    </lightning-button-group>
+                </div>
+            </div>
+        </template>
+
+        <!-- No device -->
+        <template lwc:if={showNoDevice}>
+            <div class="slds-p-around_medium slds-text-color_weak">
+                <p>No device serial found on this case.</p>
+                <p class="slds-text-body_small slds-m-top_xx-small">
+                    Add a serial number to the <strong>Device Serial</strong> field.
+                </p>
+            </div>
+        </template>
+    </lightning-card>
+</template>

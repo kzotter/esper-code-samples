@@ -1,0 +1,113 @@
+<!-- Copyright (c) 2026 Esper.io — MIT License -->
+<!-- Esper Device Panel — ServiceNow Service Portal Widget -->
+<!-- Widget Name: esper-device-panel -->
+
+<!-- Device card -->
+<div class="panel panel-default" ng-if="c.device">
+  <div class="panel-heading">
+    <div class="pull-right">
+      <span class="label"
+        ng-class="c.device.state == 1 ? 'label-success' : 'label-danger'">
+        {{c.device.state == 1 ? 'Online' : 'Offline'}}
+      </span>
+    </div>
+    <h4 class="panel-title">
+      <i class="fa fa-tablet"></i>
+      {{c.device.name || c.device.serial || 'Esper Device'}}
+    </h4>
+  </div>
+
+  <div class="panel-body">
+    <dl class="dl-horizontal dl-compact">
+      <dt>Serial</dt>
+      <dd>{{c.device.serial || '—'}}</dd>
+
+      <dt>Model</dt>
+      <dd>{{c.deviceModel}}</dd>
+
+      <dt>OS</dt>
+      <dd>Android {{c.device.os_version || '?'}}</dd>
+
+      <dt>Agent</dt>
+      <dd>{{c.device.dpc_version || '—'}}</dd>
+
+      <dt>Blueprint</dt>
+      <dd>{{c.blueprintName || '—'}}</dd>
+
+      <dt>Last Seen</dt>
+      <dd>{{c.lastSeen}}</dd>
+    </dl>
+
+    <hr style="margin: 10px 0;">
+
+    <!-- Action buttons -->
+    <div class="btn-group btn-group-sm" role="group">
+      <button class="btn btn-primary" ng-click="c.remoteView()"
+        title="Open device in Esper Console">
+        <i class="fa fa-eye"></i> Remote View
+      </button>
+      <button class="btn btn-default" ng-click="c.toggleEvents()"
+        title="Show recent events">
+        <i class="fa fa-list"></i> Events
+      </button>
+      <button class="btn btn-default" ng-click="c.sendCommand('REBOOT')"
+        ng-disabled="c.commanding"
+        title="Reboot this device">
+        <i class="fa fa-refresh"></i> Reboot
+      </button>
+      <button class="btn btn-default" ng-click="c.sendCommand('UPDATE_HEARTBEAT')"
+        ng-disabled="c.commanding"
+        title="Ping this device">
+        <i class="fa fa-exchange"></i> Ping
+      </button>
+    </div>
+
+    <!-- Events panel (toggle) -->
+    <div ng-if="c.showEvents" style="margin-top: 12px;">
+      <h5><i class="fa fa-clock-o"></i> Recent Events</h5>
+      <div ng-if="c.eventsLoading" class="text-muted">
+        <i class="fa fa-spinner fa-spin"></i> Loading events...
+      </div>
+      <table class="table table-condensed table-striped" ng-if="c.events.length > 0">
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Event</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="evt in c.events | limitTo:10">
+            <td class="text-muted" style="font-size:11px; white-space:nowrap;">
+              {{evt.timeAgo}}
+            </td>
+            <td style="font-size:12px;">
+              {{evt.event_name || evt.type || 'Event'}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-muted" ng-if="!c.eventsLoading && c.events.length === 0">
+        No recent events found.
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- Loading state -->
+<div class="text-center text-muted" ng-if="c.loading" style="padding: 20px 0;">
+  <i class="fa fa-spinner fa-spin fa-2x"></i>
+  <p style="margin-top: 8px;">Loading device from Esper...</p>
+</div>
+
+<!-- No device -->
+<div class="alert alert-info" ng-if="!c.device && !c.loading && !c.error">
+  <i class="fa fa-info-circle"></i>
+  No device serial number found on this incident.
+  Add a serial to the <strong>Device Serial</strong> field to see device info here.
+</div>
+
+<!-- Error state -->
+<div class="alert alert-danger" ng-if="c.error">
+  <i class="fa fa-exclamation-triangle"></i>
+  {{c.error}}
+</div>

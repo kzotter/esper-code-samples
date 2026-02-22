@@ -1,0 +1,7 @@
+{
+  "app": {
+    "name": "Esper Device Manager",
+    "short_description": "View Esper device status and trigger limited actions from Zendesk tickets.",
+    "long_description": "Shows live Esper device details in the ticket sidebar and allows safe, RBAC-limited actions via your own middleware."
+  }
+}

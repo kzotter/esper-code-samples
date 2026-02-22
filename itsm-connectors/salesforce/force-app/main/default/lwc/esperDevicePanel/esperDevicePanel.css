@@ -1,0 +1,4 @@
+/* Optional styles for the Esper Device Panel */
+:host {
+  display: block;
+}
